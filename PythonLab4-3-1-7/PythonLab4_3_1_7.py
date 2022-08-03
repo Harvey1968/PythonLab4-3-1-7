@@ -2,6 +2,9 @@
 
 # Defines the 'is_year_leap' function
 def is_year_leap(year):
+	#If the user input is before 1582 the below ouput is shown;
+	if year < 1582:
+		print("Not within the Gregorian calendar period")  #
 	# if the year number isn't divisible by four, it's a common year;
 	if year % 4:
 		return False
@@ -15,26 +18,29 @@ def is_year_leap(year):
 	else:
 		return True
 
+# Defines the 'days_in_month' function
 def days_in_month(year, month):
+	# Total days of each month in chronological order.
+	days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+	# daysInMonth default value set to 0.
+	daysInMonth = 0
 	# if the year or month is out of scope return None.
 	if (year < 1582) or (month < 1) or (month > 12):
 		return None
-	# Total days of each month in chronological order.
-	day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 	# Leap year + Febuary = 29 days:
-	leap = day[month -1]
+	daysInMonth = days[month -1]
 	if month == 2 and is_year_leap(year):
-		leap = 29
-	return leap
+		daysInMonth = 29
+	return daysInMonth
 
 # "Short testing code" ;; Expanded to include more test cases:
 test_years = [1900, 2000, 2016, 1987, 1985, 1581, 2012, 1600]
 test_months = [2, 2, 1, 11, 12, 5, 2, 13]
-test_results = [28, 29, 31, 30, 0, 31, 28, 5]
+test_results = [28, 29, 31, 30, 0, 31, 29, 5]
 for i in range(len(test_years)):
 	yr = test_years[i]
 	mo = test_months[i]
-	da = test_results[i]					# da added so it too can be output,
+	da = test_results[i]				# da added so it too can be output,
 	print(yr, mo, da, "-> ", end="")		# to aid in examining the testing code.
 	result = days_in_month(yr, mo)
 	if result == test_results[i]:
